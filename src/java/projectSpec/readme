@@ -1,0 +1,20 @@
+General Project Spec
+
+Pages:
+        a.) Homepage
+        b.) Login / Registration
+        c.) Dashboard for members
+        d.) Admin Dashboard
+
+Users should be able to navigate through the pages smoothly.
+Should be able to access own dashboard from any page.
+Web services should be used to perform certain processes, (eg. assessing if the
+    members are eligible for support once they make claims.
+ 
+Use github for version control.
+
+Whole system should use:
+        a.) Java EE components following MVC patterns.
+        b.) Database interaction.
+        c.) deployed on a glassfish server.
+

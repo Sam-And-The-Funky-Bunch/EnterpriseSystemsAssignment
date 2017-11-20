@@ -1,0 +1,21 @@
+1.) John Smith register on the system as a provisional member.
+       Name - John Smith
+    address - 6 station road, london, n12 2ab
+        DOB - 01-05-1968
+   Reg date - <today>
+
+2.) System generate the username j-smith and a password using his DoB in the
+    form DDMMYY
+    (The system can either automatically generate the username or reading from
+        the users provided information, but the password should be automatically
+        generated)
+
+3.) John Smith logs in to the system and pays his annual membership fee of £10.
+4.) Mehmet Aydin logs in (user- me-aydin, pass - 201068) and makes a claim of
+    £85 and produce the systems response.
+5.) admin logs in and checks the outstanding approvals.
+6.) Admin approves John Smiths membership based on payment made.
+7.) Admin evaluates Mehmet Aydins claim and reject since its the 3rd claim made
+    within the year
+8.) Admin sums up all the claims of the year and calculates the annual for
+    charge of existing full member, and charges them accordingly.
