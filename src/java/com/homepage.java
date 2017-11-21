@@ -6,12 +6,18 @@
 package com;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -41,7 +47,42 @@ public class homepage extends HttpServlet {
         }else if(request.getParameter("btnHome") != null){
             RequestDispatcher view = request.getRequestDispatcher("homepage.jsp");
             view.forward(request, response);
+        }else if(request.getParameter("btnUserLogin") != null){
+            String uName = request.getParameter("uName");
+            String password = request.getParameter("password");
+            boolean verUser = userLogin(uName, password);
+            System.out.println(verUser);
+            if(verUser == true && uName.equals("admin")){
+                RequestDispatcher view = request.getRequestDispatcher("adminDash.jsp");
+                view.forward(request, response);
+            }else if(verUser == true){
+                RequestDispatcher view = request.getRequestDispatcher("userDash.jsp");
+                view.forward(request, response);
+            }else{
+                RequestDispatcher view = request.getRequestDispatcher("login.jsp");
+                view.forward(request, response);
+            }
         }
+    }
+    
+    public boolean userLogin(String uName, String password){
+        boolean loginstat = false;
+        models.DbBean db = new models.DbBean();
+        try {    
+            Connection con = db.getCon();
+            String sql = "SELECT * FROM USERS";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                if(rs.getString(1).equals(uName) && rs.getString(2).equals(password)){
+                    loginstat = true;
+                }
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(homepage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return loginstat;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
