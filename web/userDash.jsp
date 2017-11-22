@@ -9,6 +9,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="models.user" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,8 +18,9 @@
         <title>XYZ</title>
     </head>
     <body>
+        <% user us = new user();%>
         <h1 align="center">Dashboard</h1>
-        <h2 align="center">Welcome Back to XYZ</h2>
+        <h2 align="center">Welcome Back to XYZ, <%=(us.getName()) %></h2>
         <div align="center">
             <form method="POST" action="user">
                 Please select your action below:<br><br>

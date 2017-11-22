@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.user;
 
 /**
 * Author: Jacob Williams
@@ -65,7 +66,9 @@ public class homepage extends HttpServlet {
     
     public boolean userLogin(String uName, String password){
         boolean loginstat = false;
+        user us = new user();
         models.DbBean db = new models.DbBean();
+        
         try {    
             Connection con = db.getCon();
             String sql = "SELECT * FROM USERS";
@@ -74,12 +77,14 @@ public class homepage extends HttpServlet {
             while(rs.next()){
                 if(rs.getString(1).equals(uName) && rs.getString(2).equals(password)){
                     loginstat = true;
+                    us.setUser(uName);
                 }
             }
             
         } catch (SQLException ex) {
             Logger.getLogger(homepage.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //System.out.println(us.toString());
         return loginstat;
     }
 
