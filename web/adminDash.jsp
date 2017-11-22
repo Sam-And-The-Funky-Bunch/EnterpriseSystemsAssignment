@@ -15,7 +15,7 @@
         <h1 align="center">Admin Dashboard</h1>
         <h2 align="center">Welcome Back to XYZ</h2>
         <div align="center">
-            <form>
+            <form method="POST" action="admin">
                 Please select your action below:<br><br>
                 <button type="submit" name="btnApprovals" value="approvals" 
                         style="width:120px">Approvals</button><br>
@@ -25,7 +25,7 @@
                         value="claimApprove" style="width:120px">
                         Approve Claim</button><br>
                 <button type="submit" name="btnLogout" value="logout" 
-                        style="width:120px">Login</button><br>
+                        style="width:120px">Log Out</button><br>
             </form>
         </div>
     </body>

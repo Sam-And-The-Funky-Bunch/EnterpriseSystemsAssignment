@@ -23,11 +23,12 @@
                 
                 <button type="submit" name="btnUserLogin" value="UserLogin" 
                         style="width:70px">Login</button><br><br>
-            </form>   
-            <button type="submit" name="btnReg" value="Reg" 
+                <button type="submit" name="btnReg" value="Reg" 
                         style="width:70px">Register</button>
-            <button type="submit" name="btnHome" value="Home" 
+                <button type="submit" name="btnHome" value="Home" 
                         style="width:70px">Home</button>
+            </form>   
+
         </div>
     </body>
 </html>
