@@ -2,6 +2,10 @@
     Document   : registration
     Created on : 19-Nov-2017, 22:28:27
     Author     : Jacob Williams
+    Contributors: Michael Gregory,
+                  Sam Scott,
+                  Daniel Viner,
+                  Esther Sully.
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

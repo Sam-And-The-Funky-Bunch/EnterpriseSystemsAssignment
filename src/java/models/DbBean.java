@@ -5,7 +5,12 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
- * @author Jacob Williams
+ * Author: Jacob Williams
+ * Contributors: Daniel Viner,
+ *               Michael Gregory,
+ *               Sam Scott,
+ *               Esther Sully.
+ * Function: Handles certain database functions.
  */
 public class DbBean {
     Connection con;

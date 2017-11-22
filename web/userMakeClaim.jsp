@@ -2,6 +2,10 @@
     Document   : userMakeClaim
     Created on : 22-Nov-2017, 15:48:15
     Author     : Jacob Williams
+    Contributors: Daniel Viner,
+                  Esther Sully,
+                  Michael Gregory,
+                  Sam Scott.
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

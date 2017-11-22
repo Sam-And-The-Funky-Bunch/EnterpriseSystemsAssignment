@@ -2,6 +2,10 @@
     Document   : homepage
     Created on : 19-Nov-2017, 21:01:58
     Author     : Jacob Williams
+    Contributors: Michael Gregory,
+                  Esther Sully,
+                  Sam Scott,
+                  Daniel Viner.
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

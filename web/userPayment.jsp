@@ -2,6 +2,10 @@
     Document   : userPayment
     Created on : 22-Nov-2017, 15:48:41
     Author     : Jacob Williams
+    Contributors: Sam Scott,
+                  Michael Gregory,
+                  Esther Sully,
+                  Daniel Viner.
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

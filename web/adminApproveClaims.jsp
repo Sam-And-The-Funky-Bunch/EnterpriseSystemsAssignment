@@ -1,7 +1,11 @@
 <%-- 
     Document   : adminApproveClaims
     Created on : 22-Nov-2017, 15:40:46
-    Author     : Jacob Williams
+    Author     : Michael Gregory
+    Contributors: Sam Scott,
+                  Esther Sully,
+                  Jacob Williams,
+                  Daniel Viner.
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

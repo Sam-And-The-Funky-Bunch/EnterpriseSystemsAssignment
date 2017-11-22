@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com;
 
 import java.io.IOException;
@@ -17,11 +12,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
 
 /**
- *
- * @author Jacob Williams
+* Author: Jacob Williams
+* Contributors: Esther Sully,
+*               Daniel Viner,
+*               Sam Scott,
+*               Michael Gregory.
+* Function: Handles homepage, login, and registration functions.
  */
 public class homepage extends HttpServlet {
 

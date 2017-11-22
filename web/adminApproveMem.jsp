@@ -1,7 +1,11 @@
 <%-- 
     Document   : adminApproveMem
     Created on : 22-Nov-2017, 15:40:22
-    Author     : Jacob Williams
+    Author     : Michael Gregory
+    Contributors: Esther Sully,
+                  Daniel Viner,
+                  Sam Scott,
+                  Jacob Williams.
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

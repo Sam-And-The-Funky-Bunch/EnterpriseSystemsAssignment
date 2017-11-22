@@ -2,6 +2,11 @@
     Document   : userClaimStatus
     Created on : 22-Nov-2017, 16:07:14
     Author     : Jacob Williams
+    Contributors: Sam Scott,
+                  Daniel Viner,
+                  Esther Sully,
+                  Michael Gregory.
+
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

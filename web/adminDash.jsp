@@ -2,6 +2,10 @@
     Document   : adminDash
     Created on : 21-Nov-2017, 15:26:28
     Author     : Jacob Williams
+    Contributors: Daniel Viner,
+                  Sam Scott,
+                  Esther Sully,
+                  Michael Gregory.
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

@@ -1,7 +1,11 @@
 <%-- 
-    Document   : test
+    Document   : login
     Created on : 19-Nov-2017, 21:21:53
     Author     : Jacob Williams
+    Contributors: Daniel Viner,
+                  Sam Scott,
+                  Esther Sully,
+                  Michael Gregory.
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

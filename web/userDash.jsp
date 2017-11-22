@@ -2,6 +2,10 @@
     Document   : userDash
     Created on : 21-Nov-2017, 15:26:18
     Author     : Jacob Williams
+    Contributors: Esther Sully,
+                  Sam Scott,
+                  Daniel Viner,
+                  Michael Gregory.
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

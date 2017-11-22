@@ -8,7 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 /**
- * @author Jacob Williams
+ * Author: Michael Gregory
+ * Contributors: Jacob Williams,
+ *               Esther Sully,
+ *               Daniel Viner,
+ *               Sam Scott.
+ * Function: Handles user operations.
  */
 public class user extends HttpServlet {
 
