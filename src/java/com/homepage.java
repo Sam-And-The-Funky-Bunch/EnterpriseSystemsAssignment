@@ -2,9 +2,12 @@ package com;
 
 import java.io.IOException;
 import java.sql.Connection;
+//import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -23,7 +26,8 @@ import models.user;
 * Function: Handles homepage, login, and registration functions.
  */
 public class homepage extends HttpServlet {
-
+    public int  userCount = 1;
+    public String savedUName;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,13 +43,22 @@ public class homepage extends HttpServlet {
         if(request.getParameter("btnLog") != null){
             RequestDispatcher view = request.getRequestDispatcher("login.jsp");
             view.forward(request, response);
+            
         }else if(request.getParameter("btnReg") != null){
             RequestDispatcher view = request.getRequestDispatcher("registration"
                     + ".jsp");
             view.forward(request, response);
+            
+        }else if(request.getParameter("btnUserReg") != null){
+            Date dob = Date.valueOf(request.getParameter("dob"));
+            String uName = request.getParameter("Rname");
+            String address = request.getParameter("address");
+            registration(uName, address, dob);
+        
         }else if(request.getParameter("btnHome") != null){
             RequestDispatcher view = request.getRequestDispatcher("homepage.jsp");
             view.forward(request, response);
+            
         }else if(request.getParameter("btnUserLogin") != null){
             String uName = request.getParameter("uName");
             String password = request.getParameter("password");
@@ -54,9 +67,11 @@ public class homepage extends HttpServlet {
             if(verUser == true && uName.equals("admin")){
                 RequestDispatcher view = request.getRequestDispatcher("adminDash.jsp");
                 view.forward(request, response);
+                
             }else if(verUser == true){
                 RequestDispatcher view = request.getRequestDispatcher("userDash.jsp");
                 view.forward(request, response);
+                
             }else{
                 RequestDispatcher view = request.getRequestDispatcher("login.jsp");
                 view.forward(request, response);
@@ -64,6 +79,53 @@ public class homepage extends HttpServlet {
         }
     }
     
+    public void registration(String name, String address, Date dob){
+        try {
+            //get user details
+            String temp[] = name.split(" ");
+            String uName = "" + name.substring(0,1) + "-" + temp[1];
+            savedUName = uName;
+            uName = checkUName(uName);
+            String pTemp = dob.toString().replaceAll("-", "");
+            String password = "" + pTemp.substring(6, 8) + ""
+                    + pTemp.substring(4, 6) + pTemp.substring(2, 4);
+            Date dor = Date.valueOf(LocalDate.now());
+            String status = "new";
+            double balance = 0.0;
+            
+            models.DbBean db = new models.DbBean();
+            Connection con = db.getCon();
+            String sql = "INSERT INTO members VALUES ('" + uName + "', '" + name + "', '" + address + "', '" + dob + "', '" + dor + "', '" + status + "', " + balance + ")";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.execute();
+            
+            sql = "INSERT INTO users VALUES ('" + uName + "', '" + password + "', '" + status + "')";
+            System.out.println(sql);
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(homepage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    public String checkUName(String uName){
+        try {
+            models.DbBean db = new models.DbBean();
+            Connection con = db.getCon();
+            String sql = "SELECT * FROM ROOT.MEMBERS WHERE members.\"id\"= '" + uName + "'";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                uName = savedUName + "" + userCount;
+                userCount++;
+                con.close();
+                checkUName(uName);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(homepage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return uName;
+    }
     public boolean userLogin(String uName, String password){
         boolean loginstat = false;
         user us = new user();

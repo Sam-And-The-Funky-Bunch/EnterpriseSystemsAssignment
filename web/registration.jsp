@@ -27,7 +27,7 @@
                        style="width:150px"><br>
                 <input type="date" name="dob" placeholder="Date of Birth" 
                        style="width:150px"><br>
-                <input type="submit" name="btnReg" value="Register" 
+                <input type="submit" name="btnUserReg" value="Register" 
                        style="width:70px"><br><br>
                 <button type="submit" name="btnLog" value="Login" 
                         style="width:70px">Login</button>
