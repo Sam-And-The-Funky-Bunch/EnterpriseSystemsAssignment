@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="models.user" %>
+<%@page import="models.Cuser" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,7 +13,7 @@
         <title>XYZ</title>
     </head>
     <body>
-        <% user us = new user();%>
+        <% Cuser us = new Cuser();%>
         <% String password;
            String temp = us.getDoB().toString().replaceAll("-", "");
            password = "" + temp.substring(6, 8) + ""

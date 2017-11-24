@@ -1,12 +1,12 @@
 package com;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.Cuser;
 /**
  * Author: Michael Gregory
  * Contributors: Jacob Williams,
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * Function: Handles user operations.
  */
 public class user extends HttpServlet {
-
+    public Cuser us = new Cuser();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,6 +43,13 @@ public class user extends HttpServlet {
             view.forward(request, response);
         }else if(request.getParameter("btnBack") != null){
             RequestDispatcher view = request.getRequestDispatcher("userDash.jsp");
+            view.forward(request, response);
+        }else if(request.getParameter("btnBalance") != null){
+            RequestDispatcher view = request.getRequestDispatcher("userBalance.jsp");
+            view.forward(request, response);
+        }else if(request.getParameter("btnAdd") != null){
+            us.addFunds(Double.parseDouble(request.getParameter("addFunds")));
+            RequestDispatcher view = request.getRequestDispatcher("userBalance.jsp");
             view.forward(request, response);
         }
     }

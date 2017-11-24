@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  *               Michael Gregory.
  * Function: Handles the currently logged in users profile.
  */
-public class user {
+public class Cuser {
     public static String id;
     public static String name;
     public static String address;
@@ -43,10 +43,27 @@ public class user {
             this.balance = rs.getDouble(7);           
             }
         } catch (SQLException ex) {
-            Logger.getLogger(user.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Cuser.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
+    public void addFunds(double funds){
+        try {
+            DbBean db = new DbBean();
+            Connection con = db.getCon();
+            //UPDATE ROOT.MEMBERS SET "balance" = 10.0 WHERE "id" = 'e-simons';
+            String sql = "UPDATE ROOT.MEMBERS SET \"balance\" = " 
+                    + (getBalance() + funds) + " WHERE \"id\" = '" + getID() 
+                    + "'";
+            System.out.println(sql);
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.execute();
+            setBalance(funds);
+        } catch (SQLException ex) {
+            Logger.getLogger(Cuser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public String getID(){
         return id;
     }
@@ -69,6 +86,10 @@ public class user {
     
     public String getUserStat(){
         return userStat;
+    }
+    
+    public void setBalance(double funds){
+        this.balance = balance + funds;
     }
     
     public double getBalance(){

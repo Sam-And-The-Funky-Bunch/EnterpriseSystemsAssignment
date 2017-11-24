@@ -14,7 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.user;
+import models.Cuser;
 
 /**
 * Author: Jacob Williams
@@ -108,7 +108,7 @@ public class homepage extends HttpServlet {
             System.out.println(sql);
             ps.execute();
             
-            user us = new user();
+            Cuser us = new Cuser();
             us.setUser(uName);
             
         } catch (SQLException ex) {
@@ -140,7 +140,7 @@ public class homepage extends HttpServlet {
     }
     public boolean userLogin(String uName, String password){
         boolean loginstat = false;
-        user us = new user();
+        Cuser us = new Cuser();
         models.DbBean db = new models.DbBean();
         
         try {    

@@ -9,7 +9,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="models.user" %>
+<%@page import="models.Cuser" %>
 
 <!DOCTYPE html>
 <html>
@@ -18,12 +18,14 @@
         <title>XYZ</title>
     </head>
     <body>
-        <% user us = new user();%>
+        <% Cuser us = new Cuser();%>
         <h1 align="center">Dashboard</h1>
         <h2 align="center">Welcome Back to XYZ, <%=(us.getName()) %></h2>
         <div align="center">
             <form method="POST" action="user">
                 Please select your action below:<br><br>
+                <button type="submit" name="btnBalance" value="balance" 
+                        style="width:110px">Balance</button><br>
                 <button type="submit" name="btnMakeClaim" value="makeClaim" 
                         style="width:110px">Make a Claim</button><br>
                 <button type="submit" name="btnClaimStatus" value="claimStatus" 
