@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.Cuser;
+import models.claims;
 /**
  * Author: Michael Gregory
  * Contributors: Jacob Williams,
@@ -17,6 +18,7 @@ import models.Cuser;
  */
 public class user extends HttpServlet {
     public Cuser us = new Cuser();
+    public claims claim = new claims();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,21 +34,31 @@ public class user extends HttpServlet {
         if(request.getParameter("btnLogout") != null){
             RequestDispatcher view = request.getRequestDispatcher("homepage.jsp");
             view.forward(request, response);
+            
         }else if(request.getParameter("btnMakeClaim") != null){
             RequestDispatcher view = request.getRequestDispatcher("userMakeClaim.jsp");
             view.forward(request, response);
+            
+        }else if(request.getParameter("btnSubmitClaim") != null){
+            claim.submitClaim(Double.parseDouble(request.getParameter("amount"))
+                    , request.getParameter("reason"));
+            
         }else if(request.getParameter("btnClaimStatus") != null){
             RequestDispatcher view = request.getRequestDispatcher("userClaimStatus.jsp");
             view.forward(request, response);
+            
         }else if(request.getParameter("btnMakePayment") != null){
             RequestDispatcher view = request.getRequestDispatcher("userPayment.jsp");
             view.forward(request, response);
+            
         }else if(request.getParameter("btnBack") != null){
             RequestDispatcher view = request.getRequestDispatcher("userDash.jsp");
             view.forward(request, response);
+            
         }else if(request.getParameter("btnBalance") != null){
             RequestDispatcher view = request.getRequestDispatcher("userBalance.jsp");
             view.forward(request, response);
+            
         }else if(request.getParameter("btnAdd") != null){
             us.addFunds(Double.parseDouble(request.getParameter("addFunds")));
             RequestDispatcher view = request.getRequestDispatcher("userBalance.jsp");

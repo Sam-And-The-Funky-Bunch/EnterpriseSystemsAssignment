@@ -20,6 +20,14 @@
         <h2 align="center">Please complete the details below</h2>
         <div style="text-align:center">
             <form method="POST" action="user">
+                Please enter the cost and reason for your claim.
+                <input type="number" name="amount" placeholder="0.0" 
+                       style="width:150px"><br>
+                <input type="text" name="reason" placeholder="Reason"
+                       style="width:150px"><br>
+                <button type="submit" name="btnSubmitClaim" value="submit" 
+                        style="width:70px">Submit</button>
+                        <br><br>
                 <button type="submit" name="btnBack" value="Back" 
                         style="width:70px">Back</button>
             </form>

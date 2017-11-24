@@ -1,7 +1,11 @@
 <%-- 
     Document   : userBalance
     Created on : 24-Nov-2017, 18:26:38
-    Author     : Jacob Williams
+    Author     : Daniel Viner,
+    Contributors: Jacob Williams,
+                  Sam Scott,
+                  Michael Gregory,
+                  Esther Sully.
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -25,6 +29,9 @@
                        style="width:150px"><br>
                 <button type="submit" name="btnAdd" value="add" 
                         style="width:70px">Add</button>
+                        <br> <br>
+                <button type="submit" name="btnBack" value="Back" 
+                        style="width:70px">Back</button>
             </form>
         </div>
         

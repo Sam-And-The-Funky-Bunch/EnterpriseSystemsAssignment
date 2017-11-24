@@ -1,7 +1,11 @@
 <%-- 
     Document   : userReg
     Created on : 24-Nov-2017, 17:30:56
-    Author     : Jacob Williams
+    Author     : Esther Sully,
+    Contributors: Jacob Williams,
+                  Daniel Viner,
+                  Sam Scott,
+                  Michael Gregory.
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
