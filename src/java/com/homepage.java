@@ -2,7 +2,6 @@ package com;
 
 import java.io.IOException;
 import java.sql.Connection;
-//import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -54,7 +53,9 @@ public class homepage extends HttpServlet {
             String uName = request.getParameter("Rname");
             String address = request.getParameter("address");
             registration(uName, address, dob);
-        
+            RequestDispatcher view = request.getRequestDispatcher("userReg.jsp");
+            view.forward(request, response);
+            
         }else if(request.getParameter("btnHome") != null){
             RequestDispatcher view = request.getRequestDispatcher("homepage.jsp");
             view.forward(request, response);
@@ -90,20 +91,29 @@ public class homepage extends HttpServlet {
             String password = "" + pTemp.substring(6, 8) + ""
                     + pTemp.substring(4, 6) + pTemp.substring(2, 4);
             Date dor = Date.valueOf(LocalDate.now());
-            String status = "new";
+            String status = "PROVIS";
             double balance = 0.0;
             
             models.DbBean db = new models.DbBean();
             Connection con = db.getCon();
-            String sql = "INSERT INTO members VALUES ('" + uName + "', '" + name + "', '" + address + "', '" + dob + "', '" + dor + "', '" + status + "', " + balance + ")";
+            String sql = "INSERT INTO members VALUES ('" + uName + "', '" 
+                    + name + "', '" + address + "', '" + dob + "', '" + dor 
+                    + "', '" + status + "', " + balance + ")";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.execute();
             
-            sql = "INSERT INTO users VALUES ('" + uName + "', '" + password + "', '" + status + "')";
+            sql = "INSERT INTO users VALUES ('" + uName + "', '" + password 
+                    + "', '" + status + "')";
+            ps = con.prepareStatement(sql);
             System.out.println(sql);
             ps.execute();
+            
+            user us = new user();
+            us.setUser(uName);
+            
         } catch (SQLException ex) {
-            Logger.getLogger(homepage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(homepage.class.getName()).log(Level.SEVERE, 
+                    null, ex);
         }
         
     }
@@ -112,7 +122,8 @@ public class homepage extends HttpServlet {
         try {
             models.DbBean db = new models.DbBean();
             Connection con = db.getCon();
-            String sql = "SELECT * FROM ROOT.MEMBERS WHERE members.\"id\"= '" + uName + "'";
+            String sql = "SELECT * FROM ROOT.MEMBERS WHERE members.\"id\"= '" 
+                    + uName + "'";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
@@ -122,7 +133,8 @@ public class homepage extends HttpServlet {
                 checkUName(uName);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(homepage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(homepage.class.getName()).log(Level.SEVERE, 
+                    null, ex);
         }
         return uName;
     }
@@ -137,14 +149,16 @@ public class homepage extends HttpServlet {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                if(rs.getString(1).equals(uName) && rs.getString(2).equals(password)){
+                if(rs.getString(1).equals(uName) 
+                        && rs.getString(2).equals(password)){
                     loginstat = true;
                     us.setUser(uName);
                 }
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(homepage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(homepage.class.getName()).log(Level.SEVERE, 
+                    null, ex);
         }
         //System.out.println(us.toString());
         return loginstat;
