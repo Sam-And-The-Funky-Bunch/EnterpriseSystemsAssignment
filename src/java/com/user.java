@@ -1,12 +1,20 @@
 package com;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.Cuser;
+import models.DbBean;
 import models.claims;
 /**
  * Author: Michael Gregory
@@ -18,7 +26,8 @@ import models.claims;
  */
 public class user extends HttpServlet {
     public Cuser us = new Cuser();
-    public claims claim = new claims();
+    public DbBean db = new DbBean();
+    public claims claim;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,12 +49,15 @@ public class user extends HttpServlet {
             view.forward(request, response);
             
         }else if(request.getParameter("btnSubmitClaim") != null){
-            claim.submitClaim(Double.parseDouble(request.getParameter("amount"))
+            db.submitClaim(Double.parseDouble(request.getParameter("amount"))
                     , request.getParameter("reason"));
+            RequestDispatcher view = request.getRequestDispatcher("userDash.jsp");
+            view.forward(request, response);
             
         }else if(request.getParameter("btnClaimStatus") != null){
             RequestDispatcher view = request.getRequestDispatcher("userClaimStatus.jsp");
             view.forward(request, response);
+            db.getClaims();
             
         }else if(request.getParameter("btnMakePayment") != null){
             RequestDispatcher view = request.getRequestDispatcher("userPayment.jsp");
@@ -65,7 +77,7 @@ public class user extends HttpServlet {
             view.forward(request, response);
         }
     }
-
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

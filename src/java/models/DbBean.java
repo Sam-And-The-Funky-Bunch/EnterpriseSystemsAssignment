@@ -1,9 +1,15 @@
 package models;
+import java.sql.Array;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -16,6 +22,7 @@ import java.util.logging.Logger;
  */
 public class DbBean {
     Connection con;
+    Cuser us = new Cuser();
     
     public Connection getCon(){
         try {
@@ -47,5 +54,42 @@ public class DbBean {
         }
         
         return lastrow;
+    }
+    
+    public void submitClaim(double Tamount, String Treason){
+        Cuser us = new Cuser();
+        Connection con1 = getCon();
+        int Tid = getLastRow("claims");
+        Date Tdate = Date.valueOf(LocalDate.now());
+        
+        String sql = "INSERT INTO claims VALUES(" + Tid + ", " + "'" + us.getID() 
+                + "', '" + Tdate + "', '" + Treason + "', 'PENDING', " + Tamount 
+                + ")";
+        try {
+            PreparedStatement ps = con1.prepareStatement(sql);
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(claims.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public ArrayList<claims> getClaims(){
+        ArrayList<claims> claim = new ArrayList<>();
+        Connection con1 = getCon();
+        String sql = "SELECT * FROM claims WHERE \"mem_id\" ='" + us.getID() + "'";
+        try {
+            PreparedStatement ps = con1.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                claim.add(new claims(rs.getInt(1), rs.getString(2), 
+                        rs.getDate(3), rs.getString(4), rs.getString(5), 
+                        rs.getDouble(6)));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(claims.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Collections.reverse(claim);
+        return claim;
     }
 }
