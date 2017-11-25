@@ -51,7 +51,6 @@ public class Cuser {
         try {
             DbBean db = new DbBean();
             Connection con = db.getCon();
-            //UPDATE ROOT.MEMBERS SET "balance" = 10.0 WHERE "id" = 'e-simons';
             String sql = "UPDATE ROOT.MEMBERS SET \"balance\" = " 
                     + (getBalance() + funds) + " WHERE \"id\" = '" + getID() 
                     + "'";
@@ -59,7 +58,7 @@ public class Cuser {
             
             PreparedStatement ps = con.prepareStatement(sql);
             ps.execute();
-            setBalance(funds);
+            setBalance(funds, "ADD");
         } catch (SQLException ex) {
             Logger.getLogger(Cuser.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -88,8 +87,16 @@ public class Cuser {
         return userStat;
     }
     
-    public void setBalance(double funds){
+    public void setUserStat(String newStat){
+        this.userStat = newStat;
+    }
+    
+    public void setBalance(double funds, String action){
+        if(action.equals("ADD")){
         this.balance = balance + funds;
+        }else if(action.equals("SUB")){
+            this.balance = balance - funds;
+        }
     }
     
     public double getBalance(){

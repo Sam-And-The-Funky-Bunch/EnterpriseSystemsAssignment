@@ -1,15 +1,15 @@
 package models;
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  */
 public class DbBean {
     Connection con;
-    Cuser us = new Cuser();
+    public Cuser us = new Cuser();
     
     public Connection getCon(){
         try {
@@ -54,6 +54,46 @@ public class DbBean {
         }
         
         return lastrow;
+    }
+    
+    public void payHandler(String payType){
+        try {
+            Connection con1 = getCon();
+            int id = getLastRow("payments");
+            Date date = Date.valueOf(LocalDate.now());
+            Time time = Time.valueOf(LocalTime.now());
+            PreparedStatement ps;
+            
+            if(payType.equals("Provis")){
+                String sql = "INSERT INTO payments VALUES(" + id + ", '"
+                            + us.getID() + "', 'FEE', " + 10.0 + ", '" + date
+                            + "', '" + time + "')";
+                System.out.println(sql);
+                    ps = con1.prepareStatement(sql);
+                    ps.execute();
+                    
+                    sql = "UPDATE members SET \"status\"='APPLIED', "
+                            + "\"balance\"= " + (us.getBalance() - 10.0) 
+                            + " WHERE \"id\" ='" + us.getID() + "'";
+                    ps = con1.prepareStatement(sql);
+                    ps.execute();
+                    
+                    sql = "UPDATE users SET \"status\"='APPLIED' WHERE \"id\"='" + us.getID() + "'";
+                    ps = con1.prepareStatement(sql);
+                    ps.execute();
+                    
+                    us.setUserStat("APPLIED");
+                    us.setBalance(10.0, "SUB");
+            }else if(payType.equals("sus")){
+                
+            }else if(payType.equals("Annual")){
+                
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println("SQL RUNTIME ERROR IN PAYHANDLER");
+            Logger.getLogger(DbBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void submitClaim(double Tamount, String Treason){

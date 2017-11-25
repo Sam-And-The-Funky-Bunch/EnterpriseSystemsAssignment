@@ -27,6 +27,7 @@ import models.Cuser;
 public class homepage extends HttpServlet {
     public int  userCount = 1;
     public String savedUName;
+    public Cuser us = new Cuser();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -70,6 +71,7 @@ public class homepage extends HttpServlet {
                 view.forward(request, response);
                 
             }else if(verUser == true){
+                System.out.println(us.toString());
                 RequestDispatcher view = request.getRequestDispatcher("userDash.jsp");
                 view.forward(request, response);
                 
@@ -140,7 +142,7 @@ public class homepage extends HttpServlet {
     }
     public boolean userLogin(String uName, String password){
         boolean loginstat = false;
-        Cuser us = new Cuser();
+        
         models.DbBean db = new models.DbBean();
         
         try {    

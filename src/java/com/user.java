@@ -1,13 +1,6 @@
 package com;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -45,6 +38,7 @@ public class user extends HttpServlet {
             view.forward(request, response);
             
         }else if(request.getParameter("btnMakeClaim") != null){
+            System.out.println(request.getParameter("btnMakeClaim"));
             RequestDispatcher view = request.getRequestDispatcher("userMakeClaim.jsp");
             view.forward(request, response);
             
@@ -75,6 +69,9 @@ public class user extends HttpServlet {
             us.addFunds(Double.parseDouble(request.getParameter("addFunds")));
             RequestDispatcher view = request.getRequestDispatcher("userBalance.jsp");
             view.forward(request, response);
+        }else if(request.getParameter("btnPay") != null){
+            System.out.println(request.getParameter("btnPay"));
+            db.payHandler(request.getParameter("btnPay"));
         }
     }
     
