@@ -1,5 +1,4 @@
 package models;
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -10,6 +9,7 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -117,13 +117,13 @@ public class DbBean {
         public void addFunds(double funds){
         try {
             DbBean db = new DbBean();
-            Connection con = db.getCon();
+            Connection con1 = db.getCon();
             String sql = "UPDATE ROOT.MEMBERS SET \"balance\" = " 
                     + (us.getBalance() + funds) + " WHERE \"id\" = '" + us.getID() 
                     + "'";
             System.out.println(sql);
             
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = con1.prepareStatement(sql);
             ps.execute();
             us.setBalance(funds, "ADD");
         } catch (SQLException ex) {
@@ -171,8 +171,21 @@ public class DbBean {
         }
     }
     
+    public void claimHandler(int id, String type){
+        Connection con1 = getCon();
+        String sql = "UPDATE claims SET \"status\"='" + type + "' WHERE \"id\"=" + id + "";
+        System.out.println(sql);
+        try {
+            PreparedStatement ps = con1.prepareStatement(sql);
+            ps.execute();
+        } catch (SQLException ex) {
+            System.out.println("ERROR IN CLAIM HANDLER");
+            Logger.getLogger(DbBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void submitClaim(double Tamount, String Treason){
-        Cuser us = new Cuser();
+        //Cuser us = new Cuser();
         Connection con1 = getCon();
         int Tid = getLastRow("claims");
         Date Tdate = Date.valueOf(LocalDate.now());
@@ -199,12 +212,53 @@ public class DbBean {
             while(rs.next()){
                 claim.add(new claims(rs.getInt(1), rs.getString(2), 
                         rs.getDate(3), rs.getString(4), rs.getString(5), 
-                        rs.getDouble(6)));
+                        rs.getDouble(6), 0));
             }
         } catch (SQLException ex) {
             Logger.getLogger(claims.class.getName()).log(Level.SEVERE, null, ex);
         }
         Collections.reverse(claim);
         return claim;
+    }
+    
+    public ArrayList<claims> allClaims(){
+        ArrayList<claims> claim = new ArrayList<>();
+        Connection con1 = getCon();
+        String sql = "SELECT * FROM claims WHERE \"status\"='PENDING'";
+        
+        try {
+            PreparedStatement ps = con1.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                claim.add(new claims(rs.getInt(1), rs.getString(2), 
+                        rs.getDate(3), rs.getString(4), rs.getString(5), 
+                        rs.getDouble(6), claimCount(rs.getString(2))));
+            }
+        } catch (SQLException ex) {
+            System.out.println("ERROR IN ALLCLAIMS FUNCTION");
+            Logger.getLogger(DbBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Collections.reverse(claim);
+        return claim;
+    }
+    
+    public int claimCount(String id){
+        int claimCount=0;
+        Connection con1 = getCon();
+        Date start = Date.valueOf(LocalDate.now().withMonth(1).withDayOfMonth(1));
+        Date end = Date.valueOf(LocalDate.now().withMonth(12).withDayOfMonth(31));
+        String sql = "SELECT COUNT(*) FROM claims WHERE \"mem_id\" = '" + id + "' AND \"status\"= 'APPROVED' AND \"date\" BETWEEN '" + start + "' AND '" + end +"'";
+        try {
+            PreparedStatement ps = con1.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            claimCount = rs.getInt(1);
+        } catch (SQLException ex) {
+            System.out.println("ERROR IN CLAIMCOUNT FUNCTION");
+            Logger.getLogger(DbBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return claimCount;
     }
 }

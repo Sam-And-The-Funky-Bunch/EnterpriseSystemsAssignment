@@ -18,18 +18,20 @@ public class claims {
     public String reason;
     public String status;
     public double amount;
-    DbBean db = new DbBean();
-    Cuser us = new Cuser();
-    public ArrayList<claims> claim = new ArrayList<>();
+    public int claimCount;
+    //DbBean db = new DbBean();
+    //Cuser us = new Cuser();
+    //public ArrayList<claims> claim = new ArrayList<>();
     
     public claims(int id, String mem_id, Date date, String reason, 
-            String status, double amount){
+            String status, double amount, int claimCount){
         this.id = id;
         this.mem_id = mem_id;
         this.date = date;
         this.reason = reason;
         this.status = status;
         this.amount = amount;
+        this.claimCount = claimCount;
     }
     
     public int getID(){
@@ -56,8 +58,11 @@ public class claims {
         return amount;
     }
     
+    public int getClaimCount(){
+        return claimCount;
+    }
     @Override
     public String toString(){
-        return "id= " + id + ", mem_id= " + mem_id + ", date= " + date + ", reason= " + reason + ", status= " + status + ", amount= " + amount +".";
+        return "id= " + id + ", mem_id= " + mem_id + ", date= " + date + ", reason= " + reason + ", status= " + status + ", amount= " + amount +", " + claimCount;
     }
 }

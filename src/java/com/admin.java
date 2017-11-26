@@ -41,6 +41,7 @@ public class admin extends HttpServlet {
         } else if(request.getParameter("btnClaimApprove") != null){
             RequestDispatcher view = request.getRequestDispatcher("adminApproveClaims.jsp");
             view.forward(request, response);
+            System.out.println(db.allClaims().toString());
         }else if(request.getParameter("btnBack") != null){
             RequestDispatcher view = request.getRequestDispatcher("adminDash.jsp");
             view.forward(request, response);
@@ -48,6 +49,16 @@ public class admin extends HttpServlet {
             System.out.println(request.getParameter("btnApproveMem"));
             db.approveUser(request.getParameter("btnApproveMem"));
             RequestDispatcher view = request.getRequestDispatcher("adminApproveMem.jsp");
+            view.forward(request, response);
+        }else if(request.getParameter("btnDec") != null){
+            System.out.println(request.getParameter("btnDec"));
+            db.claimHandler(Integer.parseInt(request.getParameter("btnDec")), "DECLINED" );
+            RequestDispatcher view = request.getRequestDispatcher("adminApproveClaims.jsp");
+            view.forward(request, response);
+        }else if(request.getParameter("btnAcc") != null){
+            System.out.println(request.getParameter("btnAcc"));
+            db.claimHandler(Integer.parseInt(request.getParameter("btnAcc")), "APPROVED" );
+            RequestDispatcher view = request.getRequestDispatcher("adminApproveClaims.jsp");
             view.forward(request, response);
         }
     }
