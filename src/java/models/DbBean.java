@@ -1,4 +1,5 @@
 package models;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -54,6 +55,80 @@ public class DbBean {
         }
         
         return lastrow;
+    }
+    
+    public void approveUser(String id){
+        Connection con1 = getCon();
+        String sql = "UPDATE members SET \"status\"='APPROVED' WHERE \"id\"= '" + id + "'";
+        
+        try {
+            PreparedStatement ps = con1.prepareStatement(sql);
+            ps.execute();
+            
+            sql = "UPDATE users SET \"status\"='APPROVED' WHERE \"id\"= '" + id + "'";
+            ps = con1.prepareStatement(sql);
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(DbBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void setUser(String uName){
+        Connection con1 = getCon();
+        String sql = "SELECT * FROM ROOT.MEMBERS WHERE members.\"id\"= '" + uName + "'";
+        //SELECT * FROM ROOT.MEMBERS WHERE members."id" = 'e-simons';
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+            us.setID(rs.getString(1));
+            us.setName(rs.getString(2));
+            us.setAddress(rs.getString(3));
+            us.setDoB(rs.getDate(4));
+            us.setDoR(rs.getDate(5));
+            us.setUserStat(rs.getString(6));
+            us.setBalance(rs.getDouble(7), "ADD");         
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Cuser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public ArrayList getAppliedMems(){
+        ArrayList<String> apps = new ArrayList<>();
+        Connection con1 = getCon();
+        String SQL = "SELECT \"id\" FROM members WHERE \"status\" = 'APPLIED'";
+
+        try {
+            PreparedStatement ps = con1.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                apps.add(rs.getString(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DbBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //System.out.println(apps.get(1));
+        return apps;
+    }
+    
+        public void addFunds(double funds){
+        try {
+            DbBean db = new DbBean();
+            Connection con = db.getCon();
+            String sql = "UPDATE ROOT.MEMBERS SET \"balance\" = " 
+                    + (us.getBalance() + funds) + " WHERE \"id\" = '" + us.getID() 
+                    + "'";
+            System.out.println(sql);
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.execute();
+            us.setBalance(funds, "ADD");
+        } catch (SQLException ex) {
+            Logger.getLogger(Cuser.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void payHandler(String payType){

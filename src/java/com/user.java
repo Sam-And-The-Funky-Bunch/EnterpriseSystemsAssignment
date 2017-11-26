@@ -66,7 +66,7 @@ public class user extends HttpServlet {
             view.forward(request, response);
             
         }else if(request.getParameter("btnAdd") != null){
-            us.addFunds(Double.parseDouble(request.getParameter("addFunds")));
+            db.addFunds(Double.parseDouble(request.getParameter("addFunds")));
             RequestDispatcher view = request.getRequestDispatcher("userBalance.jsp");
             view.forward(request, response);
         }else if(request.getParameter("btnPay") != null){

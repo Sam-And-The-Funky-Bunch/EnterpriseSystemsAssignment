@@ -111,7 +111,7 @@ public class homepage extends HttpServlet {
             ps.execute();
             
             Cuser us = new Cuser();
-            us.setUser(uName);
+            db.setUser(uName);
             
         } catch (SQLException ex) {
             Logger.getLogger(homepage.class.getName()).log(Level.SEVERE, 
@@ -154,7 +154,7 @@ public class homepage extends HttpServlet {
                 if(rs.getString(1).equals(uName) 
                         && rs.getString(2).equals(password)){
                     loginstat = true;
-                    us.setUser(uName);
+                    db.setUser(uName);
                 }
             }
             

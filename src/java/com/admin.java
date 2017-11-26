@@ -6,7 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import models.DbBean;
 /*
 Author: Michael Gregory
 Contributors: Jacob Williams,
@@ -16,7 +16,7 @@ Contributors: Jacob Williams,
 Function: Handles admin operations.
  */
 public class admin extends HttpServlet {
-
+    public DbBean db = new DbBean();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,8 +32,8 @@ public class admin extends HttpServlet {
         if(request.getParameter("btnLogout") != null){
             RequestDispatcher view = request.getRequestDispatcher("homepage.jsp");
             view.forward(request, response);
-        } else if(request.getParameter("btnApprovals") != null){
-            RequestDispatcher view = request.getRequestDispatcher("adminApprovals.jsp");
+        } else if(request.getParameter("btnAnnual") != null){
+            RequestDispatcher view = request.getRequestDispatcher("adminAnnual.jsp");
             view.forward(request, response);
         } else if(request.getParameter("btnMemApprove") != null){
             RequestDispatcher view = request.getRequestDispatcher("adminApproveMem.jsp");
@@ -43,6 +43,11 @@ public class admin extends HttpServlet {
             view.forward(request, response);
         }else if(request.getParameter("btnBack") != null){
             RequestDispatcher view = request.getRequestDispatcher("adminDash.jsp");
+            view.forward(request, response);
+        }else if(request.getParameter("btnApproveMem") != null){
+            System.out.println(request.getParameter("btnApproveMem"));
+            db.approveUser(request.getParameter("btnApproveMem"));
+            RequestDispatcher view = request.getRequestDispatcher("adminApproveMem.jsp");
             view.forward(request, response);
         }
     }
