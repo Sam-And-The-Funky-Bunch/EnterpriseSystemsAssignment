@@ -16,7 +16,9 @@ import java.util.logging.Logger;
  *               Michael Gregory.
  * Function: Handles the currently logged in users profile.
  */
+
 public class Cuser {
+    //VARIABLES
     public static String id;
     public static String name;
     public static String address;
@@ -25,6 +27,8 @@ public class Cuser {
     public static String userStat;
     public static double balance;
    
+    
+    //ID
     public String getID(){
         return id;
     }
@@ -33,6 +37,8 @@ public class Cuser {
         this.id = id;
     }
     
+    
+    //NAME
     public String getName(){
         return name;
     }
@@ -41,6 +47,7 @@ public class Cuser {
         this.name = name;
     }
     
+    //ADDRESS
     public String getAddress(){
         return address;
     }
@@ -49,6 +56,7 @@ public class Cuser {
         this.address = address;
     }
     
+    //DATE OF BIRTH
     public Date getDoB(){
         return DoB;   
     }
@@ -57,6 +65,7 @@ public class Cuser {
         this.DoB = dob;
     }
     
+    //DATE OF REGISTRATION
     public Date getDoR(){
         return DoR;
     }
@@ -65,6 +74,7 @@ public class Cuser {
         this.DoR = dor;
     }
     
+    //USER ACCOUNT STATUS
     public String getUserStat(){
         return userStat;
     }
@@ -73,6 +83,7 @@ public class Cuser {
         this.userStat = newStat;
     }
     
+    //BALANCE
     public void setBalance(double funds, String action){
         if(action.equals("ADD")){
         this.balance = balance + funds;

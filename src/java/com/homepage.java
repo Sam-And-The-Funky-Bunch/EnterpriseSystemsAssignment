@@ -40,6 +40,7 @@ public class homepage extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
         if(request.getParameter("btnLog") != null){
             RequestDispatcher view = request.getRequestDispatcher("login.jsp");
             view.forward(request, response);
@@ -117,7 +118,6 @@ public class homepage extends HttpServlet {
             Logger.getLogger(homepage.class.getName()).log(Level.SEVERE, 
                     null, ex);
         }
-        
     }
     
     public String checkUName(String uName){
@@ -142,7 +142,6 @@ public class homepage extends HttpServlet {
     }
     public boolean userLogin(String uName, String password){
         boolean loginstat = false;
-        
         models.DbBean db = new models.DbBean();
         
         try {    
@@ -162,7 +161,7 @@ public class homepage extends HttpServlet {
             Logger.getLogger(homepage.class.getName()).log(Level.SEVERE, 
                     null, ex);
         }
-        //System.out.println(us.toString());
+
         return loginstat;
     }
 
