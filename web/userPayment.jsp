@@ -36,7 +36,7 @@
                                 style="width:70px">Pay</button>
                         </c:when>
                         <c:when test="${balance < 10}">
-                            <font color="red">You possess insufficient funds, add more funds to continue</font>
+                            <font color="red">You possess insufficient funds, add more funds to continue</font><br>
                         </c:when>
                     </c:choose>
                 </c:when>
@@ -63,7 +63,7 @@
                     You have no outstanding payments
                 </c:when>
             </c:choose>
-             
+                    <br>
                 <button type="submit" name="btnBack" value="Back" 
                         style="width:70px">Back</button>
             </form>

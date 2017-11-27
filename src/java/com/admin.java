@@ -60,6 +60,10 @@ public class admin extends HttpServlet {
             db.claimHandler(Integer.parseInt(request.getParameter("btnAcc")), "APPROVED" );
             RequestDispatcher view = request.getRequestDispatcher("adminApproveClaims.jsp");
             view.forward(request, response);
+        }else if(request.getParameter("btnAnnualCharge") != null){
+            db.applyAnnual();
+            RequestDispatcher view = request.getRequestDispatcher("adminAnnual.jsp");
+            view.forward(request, response);
         }
     }
 

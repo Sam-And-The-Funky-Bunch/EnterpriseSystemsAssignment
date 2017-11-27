@@ -72,6 +72,8 @@ public class user extends HttpServlet {
         }else if(request.getParameter("btnPay") != null){
             System.out.println(request.getParameter("btnPay"));
             db.payHandler(request.getParameter("btnPay"));
+            RequestDispatcher view = request.getRequestDispatcher("userPayment.jsp");
+            view.forward(request, response);
         }
     }
     

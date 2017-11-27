@@ -9,7 +9,6 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,6 +36,13 @@ public class DbBean {
         return con;
     }
     
+    /*
+    ----------------------------------------------------------------------------
+    
+                                GENERAL FUNCTIONS
+    
+    ----------------------------------------------------------------------------
+    */
     public int getLastRow(String table){
         int lastrow = 5;
         Connection con1 = getCon();
@@ -46,17 +52,24 @@ public class DbBean {
         try {
             ps = con1.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            
             rs.next();
             lastrow = rs.getInt(1) + 1;
             con1.close();
         } catch (SQLException ex) {
+            System.out.println("ERROR IN LASTROW");
             Logger.getLogger(DbBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        System.out.println(lastrow);
         return lastrow;
     }
     
+    /*
+    ----------------------------------------------------------------------------
+    
+                                  USER FUNCTIONS
+    
+    ----------------------------------------------------------------------------
+    */
     public void approveUser(String id){
         Connection con1 = getCon();
         String sql = "UPDATE members SET \"status\"='APPROVED' WHERE \"id\"= '" + id + "'";
@@ -69,6 +82,7 @@ public class DbBean {
             ps = con1.prepareStatement(sql);
             ps.execute();
         } catch (SQLException ex) {
+            System.out.println("SQL ERROR IN APPROVEUSER");
             Logger.getLogger(DbBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -90,6 +104,7 @@ public class DbBean {
             us.setBalance(rs.getDouble(7), "ADD");         
             }
         } catch (SQLException ex) {
+            System.out.println("SQL ERROR IN SETUSER");
             Logger.getLogger(Cuser.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -114,6 +129,13 @@ public class DbBean {
         return apps;
     }
     
+    /*
+    ----------------------------------------------------------------------------
+    
+                                Payment Functions
+    
+    ----------------------------------------------------------------------------
+    */
         public void addFunds(double funds){
         try {
             DbBean db = new DbBean();
@@ -161,8 +183,6 @@ public class DbBean {
                     us.setBalance(10.0, "SUB");
             }else if(payType.equals("sus")){
                 
-            }else if(payType.equals("Annual")){
-                
             }
             
         } catch (SQLException ex) {
@@ -171,6 +191,72 @@ public class DbBean {
         }
     }
     
+    public double getAnnual(){
+        double annual = 0.0;
+        Connection con1 = getCon();
+        Date start = Date.valueOf(LocalDate.now().withMonth(1).withDayOfMonth(1));
+        Date end = Date.valueOf(LocalDate.now().withMonth(12).withDayOfMonth(31));
+        String sql = "SELECT \"amount\" FROM claims WHERE \"status\" = 'APPROVED' AND \"date\" BETWEEN '" + start + "' AND '" + end +"'";
+        
+        try {
+            PreparedStatement ps = con1.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                annual = annual + rs.getDouble(1);
+            }
+            
+            sql = "SELECT COUNT(*) FROM members";
+            ps = con1.prepareStatement(sql);
+            rs = ps.executeQuery();
+            rs.next();
+            annual = annual / rs.getDouble(1);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DbBean.class.getName()).log(Level.SEVERE, null, ex);
+        }    
+        return annual;
+    }
+    
+    public void applyAnnual(){
+        double annual = getAnnual();
+        Connection con1 = getCon();
+        Date date = Date.valueOf(LocalDate.now());
+        Time time = Time.valueOf(LocalTime.now());
+        
+        String sql = "UPDATE members SET \"balance\" = \"balance\" - " + annual + "";
+        
+        PreparedStatement ps;
+        try {
+            ps = con1.prepareStatement(sql);
+            ps.execute();
+            
+            sql = "SELECT \"id\" FROM members";
+            ps = con1.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                int id = getLastRow("payments");
+                
+                sql = "INSERT INTO payments VALUES (" + id + ", '" + rs.getString(1) + "', 'ANNUAL', " + annual + ", '" + date + "', '" + time + "')";
+                ps = con1.prepareStatement(sql);
+                ps.execute();
+            }
+            /*
+            String sql = "INSERT INTO payments VALUES(" + id + ", '" + us.getID() + "', 'FEE', " + 10.0 + ", '" + date + "', '" + time + "')";
+            */
+        } catch (SQLException ex) {
+            Logger.getLogger(DbBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    /*
+    ----------------------------------------------------------------------------
+    
+                                CLAIM FUNCTIONS
+    
+    ----------------------------------------------------------------------------
+    */
     public void claimHandler(int id, String type){
         Connection con1 = getCon();
         String sql = "UPDATE claims SET \"status\"='" + type + "' WHERE \"id\"=" + id + "";

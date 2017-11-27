@@ -21,7 +21,7 @@
         <h1 align="center">Your Balance</h1>
         <h2 align="center">Your balance is currently:</h2>
         <div align="center">
-            £<%=(us.getBalance())%>
+            <font color="green">£<%=(us.getBalance())%></font>
             <br><br>
             Funds you wish to add:
             <form>
@@ -33,7 +33,6 @@
                 <button type="submit" name="btnBack" value="Back" 
                         style="width:70px">Back</button>
             </form>
-        </div>
-        
+        </div>      
     </body>
 </html>

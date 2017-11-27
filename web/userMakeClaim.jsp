@@ -20,7 +20,7 @@
         <h2 align="center">Please complete the details below</h2>
         <div style="text-align:center">
             <form method="POST" action="user">
-                Please enter the cost and reason for your claim.
+                Please enter the cost and reason for your claim.<br>
                 <input type="number" name="amount" placeholder="0.0" 
                        style="width:150px"><br>
                 <input type="text" name="reason" placeholder="Reason"
