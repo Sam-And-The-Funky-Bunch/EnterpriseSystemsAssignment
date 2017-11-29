@@ -22,11 +22,14 @@
     </head>
     <body>
         <%
+            if(session.getAttribute("user") == null){
+                response.sendRedirect("login.jsp");
+            }
             DbBean db = new DbBean();
             ArrayList<claims> claims = db.getClaims();
             //System.out.println(claims.get(1).toString());
             request.setAttribute( "claimsList", claims );
-            %>
+        %>
             
         <h1 align="center">Claim Status</h1>
         <h2 align="center">The status of you claims are listed below:</h2>

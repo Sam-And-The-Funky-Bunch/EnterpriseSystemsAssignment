@@ -18,7 +18,12 @@
         <title>XYZ</title>
     </head>
     <body>
-        <% Cuser us = new Cuser();%>
+        <%
+            if(session.getAttribute("user") == null){
+                response.sendRedirect("login.jsp");
+            }
+            Cuser us = new Cuser();
+        %>
         <h1 align="center">Dashboard</h1>
         <h2 align="center">Welcome Back to XYZ, <%=(us.getName()) %></h2>
         <div align="center">

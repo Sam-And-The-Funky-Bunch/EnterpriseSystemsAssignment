@@ -20,6 +20,9 @@
     </head>
     <body>
         <%
+            if(session.getAttribute("admin") == null){
+                response.sendRedirect("login.jsp");
+            }
             DbBean db = new DbBean();
             ArrayList<String> apps = db.getAppliedMems();
             request.setAttribute( "applications", apps );

@@ -21,6 +21,9 @@
     </head>
     <body>
         <%
+            if(session.getAttribute("admin") == null){
+                response.sendRedirect("login.jsp");
+            }
             DbBean db = new DbBean();
             ArrayList<claims> claim = db.allClaims();
             request.setAttribute( "claimList", claim );

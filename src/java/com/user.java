@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import models.Cuser;
 import models.DbBean;
 import models.claims;
@@ -36,6 +37,11 @@ public class user extends HttpServlet {
         if(request.getParameter("btnLogout") != null){
             RequestDispatcher view = request.getRequestDispatcher("homepage.jsp");
             view.forward(request, response);
+            HttpSession session = request.getSession(false);
+            if(session != null){
+                session.invalidate();
+            }
+            
             
         }else if(request.getParameter("btnMakeClaim") != null){
             System.out.println(request.getParameter("btnMakeClaim"));

@@ -16,6 +16,11 @@
         <title>XYZ</title>
     </head>
     <body>
+        <%
+            if(session.getAttribute("admin") == null){
+                response.sendRedirect("login.jsp");
+            }
+        %>
         <h1 align="center">Admin Dashboard</h1>
         <h2 align="center">Welcome Back to XYZ</h2>
         <div align="center">

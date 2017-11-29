@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import models.Cuser;
 
 /**
@@ -42,25 +43,24 @@ public class homepage extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         if(request.getParameter("btnLog") != null){
-            RequestDispatcher view = request.getRequestDispatcher("login.jsp");
-            view.forward(request, response);
+            String encodedURL = response.encodeRedirectURL("login.jsp");
+            response.sendRedirect(encodedURL);
             
         }else if(request.getParameter("btnReg") != null){
-            RequestDispatcher view = request.getRequestDispatcher("registration"
-                    + ".jsp");
-            view.forward(request, response);
+            String encodedURL = response.encodeRedirectURL("registration.jsp");
+            response.sendRedirect(encodedURL);
             
         }else if(request.getParameter("btnUserReg") != null){
             Date dob = Date.valueOf(request.getParameter("dob"));
             String uName = request.getParameter("Rname");
             String address = request.getParameter("address");
             registration(uName, address, dob);
-            RequestDispatcher view = request.getRequestDispatcher("userReg.jsp");
-            view.forward(request, response);
+            String encodedURL = response.encodeRedirectURL("userReg.jsp");
+            response.sendRedirect(encodedURL);
             
         }else if(request.getParameter("btnHome") != null){
-            RequestDispatcher view = request.getRequestDispatcher("homepage.jsp");
-            view.forward(request, response);
+            String encodedURL = response.encodeRedirectURL("homepage.jsp");
+            response.sendRedirect(encodedURL);
             
         }else if(request.getParameter("btnUserLogin") != null){
             String uName = request.getParameter("uName");
@@ -68,17 +68,22 @@ public class homepage extends HttpServlet {
             boolean verUser = userLogin(uName, password);
             System.out.println(verUser);
             if(verUser == true && uName.equals("admin")){
-                RequestDispatcher view = request.getRequestDispatcher("adminDash.jsp");
-                view.forward(request, response);
-                
+                HttpSession ADsession = request.getSession();
+                ADsession.setAttribute("admin", uName);
+                ADsession.setMaxInactiveInterval(20*60);
+                String encodedURL = response.encodeRedirectURL("adminDash.jsp");
+                response.sendRedirect(encodedURL);
             }else if(verUser == true){
                 System.out.println(us.toString());
-                RequestDispatcher view = request.getRequestDispatcher("userDash.jsp");
-                view.forward(request, response);
+                HttpSession session = request.getSession();
+                session.setAttribute("user", uName);
+                session.setMaxInactiveInterval(20*60);
+                String encodedURL = response.encodeRedirectURL("userDash.jsp");
+                response.sendRedirect(encodedURL);
                 
             }else{
-                RequestDispatcher view = request.getRequestDispatcher("login.jsp");
-                view.forward(request, response);
+                String encodedURL = response.encodeRedirectURL("login.jsp");
+                response.sendRedirect(encodedURL);
             }
         }
     }

@@ -18,8 +18,12 @@
         <title>XYZ</title>
     </head>
     <body>
-        <% Cuser us = new Cuser(); 
-        request.setAttribute( "us", us );
+        <% 
+            if(session.getAttribute("user") == null){
+                response.sendRedirect("login.jsp");
+            }
+            Cuser us = new Cuser(); 
+            request.setAttribute( "us", us );
         %>
         <h1 align="center">Make a Payment</h1>
         <h2 align="center">Please complete the details below:</h2>
