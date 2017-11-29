@@ -16,11 +16,6 @@
         <title>XYZ</title>
     </head>
     <body>
-        <%
-            if(session.getAttribute("user") == null){
-                response.sendRedirect("login.jsp");
-            }
-        %>
         <h1 align="center">Make a Claim</h1>
         <h2 align="center">Please complete the details below</h2>
         <div style="text-align:center">

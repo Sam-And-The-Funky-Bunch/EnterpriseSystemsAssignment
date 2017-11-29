@@ -17,11 +17,6 @@
         <title>XYZ</title>
     </head>
     <body>
-        <%
-            if(session.getAttribute("user") == null){
-                response.sendRedirect("login.jsp");
-            }
-        %>
         <% Cuser us = new Cuser();%>
         <h1 align="center">Your Balance</h1>
         <h2 align="center">Your balance is currently:</h2>

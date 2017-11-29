@@ -18,13 +18,6 @@
         <title>XYZ</title>
     </head>
     <body>
-        <% 
-            if(session.getAttribute("user") == null){
-                response.sendRedirect("login.jsp");
-            }
-            Cuser us = new Cuser(); 
-            request.setAttribute( "us", us );
-        %>
         <h1 align="center">Make a Payment</h1>
         <h2 align="center">Please complete the details below:</h2>
         <c:set var="val" value="${us.userStat}" />
