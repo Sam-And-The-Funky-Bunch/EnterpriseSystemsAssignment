@@ -19,9 +19,6 @@
     </head>
     <body>
         <% 
-            if(session.getAttribute("user") == null){
-                response.sendRedirect("login.jsp");
-            }
             Cuser us = new Cuser(); 
             request.setAttribute( "us", us );
         %>

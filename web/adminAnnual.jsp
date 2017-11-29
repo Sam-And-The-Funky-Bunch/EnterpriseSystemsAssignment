@@ -18,9 +18,6 @@
     </head>
     <body>
         <%
-            if(session.getAttribute("admin") == null){
-                response.sendRedirect("login.jsp");
-            }
             DbBean db = new DbBean();
             double annual = db.getAnnual();
             request.setAttribute("annFee", annual);
