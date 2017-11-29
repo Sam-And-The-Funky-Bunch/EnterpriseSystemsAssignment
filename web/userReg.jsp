@@ -17,6 +17,11 @@
         <title>XYZ</title>
     </head>
     <body>
+        <%
+            if(session.getAttribute("user") == null){
+                response.sendRedirect("login.jsp");
+            }
+        %>
         <% Cuser us = new Cuser();%>
         <% String password;
            String temp = us.getDoB().toString().replaceAll("-", "");

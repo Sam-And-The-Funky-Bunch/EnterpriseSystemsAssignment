@@ -22,6 +22,9 @@
     </head>
     <body>
         <%
+            if(session.getAttribute("user") == null){
+                response.sendRedirect("login.jsp");
+            }
             DbBean db = new DbBean();
             ArrayList<claims> claims = db.getClaims();
             //System.out.println(claims.get(1).toString());
