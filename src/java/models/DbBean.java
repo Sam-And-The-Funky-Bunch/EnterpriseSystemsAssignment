@@ -144,7 +144,7 @@ public class DbBean {
             us.setDoB(rs.getDate(4));
             us.setDoR(rs.getDate(5));
             us.setUserStat(rs.getString(6));
-            us.setBalance(rs.getDouble(7), "ADD");         
+            us.setBalance(rs.getDouble(7), "SET");         
             }
         } catch (SQLException ex) {
             System.out.println("SQL ERROR IN SETUSER");

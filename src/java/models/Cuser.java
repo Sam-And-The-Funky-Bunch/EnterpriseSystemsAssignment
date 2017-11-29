@@ -86,9 +86,11 @@ public class Cuser {
     //BALANCE
     public void setBalance(double funds, String action){
         if(action.equals("ADD")){
-        this.balance = balance + funds;
+            this.balance = balance + funds;
         }else if(action.equals("SUB")){
             this.balance = balance - funds;
+        }else if(action.equals("SET")){
+            this.balance = funds;
         }
     }
     
